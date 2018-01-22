@@ -23,10 +23,9 @@ Article.loadAll = rawData => {
   rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
 
   // OLD forEach():
-  rawData.forEach(articleObject => Article.all.push(new Article(articleObject)));
+ // rawData.forEach(articleObject => Article.all.push(new Article(articleObject)));
   
-
-  //this.all = rawData.map(each=>Object.assign(new Article(), each));
+  Article.all = rawData.map(articleObject=>new Article(articleObject));
 
 };
 
@@ -39,15 +38,18 @@ Article.fetchAll = callback => {
 };
 
 Article.numWordsAll = () => {
-  return Article.all.map().reduce()
+  return Article.all.map(el=>el.body).reduce((a,b)=>a+b).split(' ').length;
 };
 
 Article.allAuthors = () => {
-  return Article.all.map().reduce();
+  return Article.all.map(el=>el.author).sort().filter((cur,idx,arr) => cur!==arr[idx+1]);
 };
 
 Article.numWordsByAuthor = () => {
-  return Article.allAuthors().map(author => {})
+  return Article.allAuthors().map(author => {
+    var numWords = Article.all.filter(article=>article.author===author).map(el=>el.body).reduce((a,b)=>a+b).split(' ').length;
+    return { name: author, words: numWords };
+  })
 };
 
 Article.truncateTable = callback => {
