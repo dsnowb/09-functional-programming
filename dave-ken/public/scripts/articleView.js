@@ -1,7 +1,7 @@
 'use strict';
 var app = app || {};
 
-//(function(module) {
+(function(module, Article) {
 var articleView = {};
 
 articleView.populateFilters = () => {
@@ -140,4 +140,5 @@ articleView.initAdminPage = () => {
   $('#blog-stats .words').text(app.Article.numWordsAll());
 };
 
-//})(app)
+module.articleView = articleView;
+})(app, app.Article)
