@@ -25,7 +25,7 @@ Article.loadAll = rawData => {
   /* OLD forEach():
   rawData.forEach(articleObject => Article.all.push(new Article(articleObject)));
   */
-
+this.all = rawData.map(each => Object.assign(new Article(), each));
 };
 
 Article.fetchAll = callback => {
